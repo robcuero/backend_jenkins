@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  backend:
+    image: backend-image  # Usa la imagen que has construido
+    ports:
+      - "3000:3000"  # Exponer el puerto del backend en la máquina host
+    networks:
+      - my-network
+    depends_on:
+      - postgres-db  # Asegura que la base de datos esté disponible antes de iniciar el backend
+    environment:
+      - DATABASE_URL=postgres://postgres:12345@postgres-db:5432/postgres  # Conexión a la base de datos
+
+  postgres-db:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=12345
+      - POSTGRES_DB=mydb
+    ports:
+      - "5432:5432"  # Exponer el puerto de PostgreSQL en la máquina host
+    volumes:
+      - db:/var/lib/postgresql/data  # Persistencia de datos en un volumen
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: overlay
+
+volumes:
+  db:
