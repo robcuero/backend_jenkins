@@ -5,7 +5,7 @@ services:
       context: ./  # Ruta al Dockerfile del backend
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"  # Exponer el puerto del backend en la máquina host
+      - "3001:3001"  # Exponer el puerto del backend en la máquina host
     networks:
       - my-network
     depends_on:
