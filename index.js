@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const routes = require('./routes');
 const cors = require('cors'); 
 const app = express();
-const port = 3000;
+const port = 3001;
 
 // Configurar CORS para permitir acceso desde el frontend
 app.use(cors({
